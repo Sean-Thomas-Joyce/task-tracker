@@ -1,12 +1,8 @@
 import typer
-from pathlib import Path
 
 from task_list import TaskList
 
 app = typer.Typer()
-
-path = Path("tasks.json")
-
 task_list = TaskList()
 
 
@@ -34,10 +30,6 @@ def delete(id: int):
     print(f"Deleted task with id {id}")
 
 
-def main():
+if __name__ == "__main__":
     task_list.load_tasks()
     app()
-
-
-if __name__ == "__main__":
-    main()
