@@ -12,14 +12,12 @@ path = Path("tasks.json")
 @app.command()
 def add(description: str):
     task_list.add_task(description)
-    path.write_text(task_list.model_dump_json())
     print(f"Added task: {description}")
 
 
 @app.command()
 def update(id: int, description: str):
     task_list.update_task(id, description)
-    path.write_text(task_list.model_dump_json())
 
 
 @app.command()
@@ -30,7 +28,6 @@ def list():
 @app.command()
 def delete(id: int):
     task_list.delete_task(id)
-    path.write_text(task_list.model_dump_json())
 
 
 if __name__ == "__main__":
