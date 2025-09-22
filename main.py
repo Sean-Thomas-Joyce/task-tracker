@@ -1,21 +1,25 @@
 import typer
+from pathlib import Path
 
 from task_list import TaskList
 
 app = typer.Typer()
 task_list = TaskList()
 
+path = Path("tasks.json")
+
 
 @app.command()
 def add(description: str):
     task_list.add_task(description)
-    task_list.write_tasks()
+    path.write_text(task_list.model_dump_json())
     print(f"Added task: {description}")
 
 
 @app.command()
 def update(id: int, description: str):
     task_list.update_task(id, description)
+    path.write_text(task_list.model_dump_json())
 
 
 @app.command()
@@ -26,8 +30,7 @@ def list():
 @app.command()
 def delete(id: int):
     task_list.delete_task(id)
-    task_list.write_tasks()
-    print(f"Deleted task with id {id}")
+    path.write_text(task_list.model_dump_json())
 
 
 if __name__ == "__main__":

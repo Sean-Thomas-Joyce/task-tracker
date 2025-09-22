@@ -1,21 +1,20 @@
-from dataclasses import dataclass
-from datetime import date, datetime
-from enum import Enum, auto
+from datetime import datetime
+from enum import Enum
+from pydantic import BaseModel
 
 
-class Status(int, Enum):
-    TODO = auto()
-    IN_PROGRESS = auto()
-    DONE = auto()
+class Status(str, Enum):
+    TODO = "TODO"
+    IN_PROGRESS = "IN_PROGRESS"
+    DONE = "DONE"
 
 
-@dataclass
-class Task:
+class Task(BaseModel):
     id: int
     description: str
     status: Status = Status.TODO
-    created_at: date = datetime.now()
-    updated_at: date = datetime.now()
+    created_at: datetime = datetime.now()
+    updated_at: datetime = datetime.now()
 
     def update_description(self, new_description: str):
         self.description = new_description
@@ -23,13 +22,3 @@ class Task:
 
     def __str__(self):
         return f"[{self.id}] {self.description} - {self.status.name} (Created: {self.created_at}, Updated: {self.updated_at})"
-
-    @staticmethod
-    def from_dict(item: dict[str, str]):
-        return Task(
-            id=int(item["id"]),
-            description=item["description"],
-            status=Status(item["status"]),
-            created_at=datetime.fromisoformat(item["created_at"]),
-            updated_at=datetime.fromisoformat(item["updated_at"]),
-        )
