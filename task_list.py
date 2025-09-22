@@ -19,6 +19,7 @@ class TaskList(BaseModel):
         task_id = max((t.id for t in self.tasks), default=0) + 1
         self.tasks.append(Task(id=task_id, description=description))
         path.write_text(self.model_dump_json())
+        print(f"Added task: {description}")
 
     def update_task(self, id: int, description: str):
         task = next((t for t in self.tasks if t.id == id), None)

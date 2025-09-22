@@ -6,13 +6,10 @@ from task_list import TaskList
 app = typer.Typer()
 task_list = TaskList()
 
-path = Path("tasks.json")
-
 
 @app.command()
 def add(description: str):
     task_list.add_task(description)
-    print(f"Added task: {description}")
 
 
 @app.command()
