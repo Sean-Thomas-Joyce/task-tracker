@@ -34,7 +34,7 @@ class TaskList:
         id = max((t.id for t in self.tasks), default=0) + 1
         self.tasks.append(Task(id, description))
 
-    def update_task(self, id: int, description: str) -> bool:
+    def update_task(self, id: int, description: str):
         task = next((t for t in self.tasks if t.id == id), None)
         if task:
             task.update_description(description)
