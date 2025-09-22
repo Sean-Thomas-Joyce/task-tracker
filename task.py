@@ -23,3 +23,13 @@ class Task:
 
     def __str__(self):
         return f"[{self.id}] {self.description} - {self.status.name} (Created: {self.created_at}, Updated: {self.updated_at})"
+
+    @staticmethod
+    def from_dict(item: dict[str, str]):
+        return Task(
+            id=int(item["id"]),
+            description=item["description"],
+            status=Status(item["status"]),
+            created_at=datetime.fromisoformat(item["created_at"]),
+            updated_at=datetime.fromisoformat(item["updated_at"]),
+        )
