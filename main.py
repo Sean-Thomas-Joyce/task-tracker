@@ -19,9 +19,7 @@ def add(description: str):
 
 @app.command()
 def update(id: int, description: str):
-    updated = task_list.update_task(id, description)
-    if updated:
-        task_list.write_tasks()
+    task_list.update_task(id, description)
 
 
 @app.command()

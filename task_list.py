@@ -38,10 +38,9 @@ class TaskList:
         task = next((t for t in self.tasks if t.id == id), None)
         if task:
             task.update_description(description)
-            return True
+            self.write_tasks()
         else:
             print(f"Cant find task with id {id}")
-            return False
 
     def delete_task(self, id: int):
         self.tasks = [task for task in self.tasks if task.id != id]
